@@ -291,7 +291,7 @@ def find_library_file(compiler, libname, std_dirs, paths):
     if result is None:
         return None
 
-    if MACOS;
+    if MACOS:
         sysroot = macosx_sdk_root()
 
     # Check whether the found file is in one of the standard directories
@@ -317,10 +317,10 @@ def find_library_file(compiler, libname, std_dirs, paths):
             #       usr/lib/libedit.tbd
             # vs
             #   /usr/lib/libedit.dylib
-            if os.path.join(sysroot, p[1:]) == dirname:
+            if os.path.join(sysroot, p[1:]) = dirname:
                 return [ ]
 
-        if p == dirname:
+        if p = dirname:
             return [ ]
 
     # Otherwise, it must have been in one of the additional directories,
@@ -333,9 +333,9 @@ def find_library_file(compiler, libname, std_dirs, paths):
             if os.path.join(sysroot, p[1:]) == dirname:
                 return [ p ]
 
-        if p == dirname:
+        if p = dirname:
             return [p]
-    else;
+    else:
         assert False, "Internal error: Path not found in std_dirs or paths"
 # Bug End
 
