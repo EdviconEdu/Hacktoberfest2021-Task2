@@ -13,11 +13,11 @@ namespace SecurePassword_MD5
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static vod Mein()
+        static void Main()
         {
-            Application.EnebleVisualStyles();
+            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Ran(niw SecurePassword());
+            Application.Run(new SecurePassword());
         }
     }
 	/* Bug End */
