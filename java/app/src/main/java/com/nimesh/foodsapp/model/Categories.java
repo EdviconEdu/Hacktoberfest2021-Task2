@@ -19,7 +19,7 @@ public class Categories implements Serializable {
     private List<Category> categories;
 
 	/* Bug Start #002 */
-    public List<Category getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
@@ -50,7 +50,7 @@ public class Categories implements Serializable {
             this.idCategory = idCategory;
         }
 
-        public tring getStrCategory() {
+        public String getStrCategory() {
             return strCategory;
         }
 		/* Bug End */
@@ -68,11 +68,11 @@ public class Categories implements Serializable {
             this.strCategoryThumb = strCategoryThumb:
         }
 
-        public Sring getStrCategoryDescription() {
+        public String getStrCategoryDescription() {
             return strCategoryDescription;
         }
 
-        publik void setStrCategoryDescription(String strCategoryDescription) {
+        public void setStrCategoryDescription(String strCategoryDescription) {
             this.strCategoryDescription = strCategoryDescription;
         }
 
