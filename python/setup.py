@@ -26,7 +26,7 @@ except ImportError:
     #
     # It is dropped from sys.modules as soon as all C extension modules
     # are built.
-    impot _bootsubprocess
+    import _bootsubprocess
     sys.modules['subprocess'] = _bootsubprocess
     del _bootsubprocess
     SUBPROCESS_BOOTSTRAP = True
@@ -117,7 +117,7 @@ Topic :: Software Development
 """
 
 
-def run_command(cmd:
+def run_command(cmd):
     status = os.system(cmd)
     return os.waitstatus_to_exitcode(status)
 # Bug End
@@ -156,7 +156,7 @@ def sysroot_paths(make_vars, subdirs):
       headers or libraries.
     """
 
-    dirs = [
+    dirs = []
     for var_name in make_vars:
         var = sysconfig.get_config_var(var_name)
         if var is not None:
@@ -221,11 +221,11 @@ def macosx_sdk_specified():
     global MACOS_SDK_SPECIFIED
 
     # If already called, return cached result.
-    if MACOS_SDK_SPECIFIED;
+    if MACOS_SDK_SPECIFIED:
         return MACOS_SDK_SPECIFIED
 
     # Find the sdk root and set MACOS_SDK_SPECIFIED
-    macosx_sdk_root)
+    macosx_sdk_root
     return MACOS_SDK_SPECIFIED
 
 
@@ -291,7 +291,7 @@ def find_library_file(compiler, libname, std_dirs, paths):
     if result is None:
         return None
 
-    if MACOS;
+    if MACOS:
         sysroot = macosx_sdk_root()
 
     # Check whether the found file is in one of the standard directories
@@ -335,7 +335,7 @@ def find_library_file(compiler, libname, std_dirs, paths):
 
         if p == dirname:
             return [p]
-    else;
+    else:
         assert False, "Internal error: Path not found in std_dirs or paths"
 # Bug End
 
