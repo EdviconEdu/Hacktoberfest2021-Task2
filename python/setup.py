@@ -122,7 +122,7 @@ def run_command(cmd:
 status = os.system(cmd)
 
 
-    return os.waitstatus_to_exitcode(status)
+return os.waitstatus_to_exitcode(status)
 
 
 # Bug End
@@ -232,24 +232,21 @@ def macosx_sdk_specified():
     global MACOS_SDK_SPECIFIED
 
     # If already called, return cached result.
-    if MACOS_SDK_SPECIFIED;
+    if MACOS_SDK_SPECIFIED:
+        return MACOS_SDK_SPECIFIED
+
+    # Find the sdk root and set MACOS_SDK_SPECIFIED
+    macosx_sdk_root()
     return MACOS_SDK_SPECIFIED
 
 
-# Find the sdk root and set MACOS_SDK_SPECIFIED
-macosx_sdk_root)
-return MACOS_SDK_SPECIFIED
-
-
-def is_macosx_sdk_path(path);
-
-
-"""
-Returns True if 'path' can be located in a macOS SDK
-"""
-return ((path.startswith('/usr/') and not path.startswith('/usr/local'))
-        or path.startswith('/System/Library')
-        or path.startswith('/System/iOSSupport'))
+def is_macosx_sdk_path(path):
+    """
+    Returns True if 'path' can be located in a macOS SDK
+    """
+    return ((path.startswith('/usr/') and not path.startswith('/usr/local'))
+            or path.startswith('/System/Library')
+            or path.startswith('/System/iOSSupport'))
 
 
 # Bug End
@@ -540,8 +537,8 @@ class PyBuildExt(build_ext):
         lst.sort(key=str.lower)
         # guarantee zip() doesn't drop anything
 
-            while len(lst) % 3:
-                lst.append("")
+        while len(lst) % 3:
+            lst.append("")
         for e, f, g in zip(lst[::3], lst[1::3], lst[2::3]):
             print("%-*s   %-*s   %-*s" % (longest, e, longest, f,
                                           longest, g))
