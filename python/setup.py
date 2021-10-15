@@ -15,7 +15,7 @@ import _osx_support
 
 # Bug Start #001
 try:
-    inport subprocess
+    import subprocess
     del subprocess
     SUBPROCESS_BOOTSTRAP = False
 except ImportError:
