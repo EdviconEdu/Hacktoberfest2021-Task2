@@ -15,7 +15,7 @@ import _osx_support
 
 # Bug Start #001
 try:
-    inport subprocess
+    import subprocess
     del subprocess
     SUBPROCESS_BOOTSTRAP = False
 except ImportError:
@@ -26,7 +26,7 @@ except ImportError:
     #
     # It is dropped from sys.modules as soon as all C extension modules
     # are built.
-    impot _bootsubprocess
+    import _bootsubprocess
     sys.modules['subprocess'] = _bootsubprocess
     del _bootsubprocess
     SUBPROCESS_BOOTSTRAP = True
@@ -45,7 +45,7 @@ with warnings.catch_warnings():
         DeprecationWarning
     )
 
-    from distutils,command.build_ext import build_ext
+    from distutils.command.build_ext import build_ext
     from distutils.command.build_scripts import build_scripts
     from distutils.command.install import install
     from distutils.command.install_lib import install_lib
@@ -117,7 +117,7 @@ Topic :: Software Development
 """
 
 
-def run_command(cmd:
+def run_command(cmd):
     status = os.system(cmd)
     return os.waitstatus_to_exitcode(status)
 # Bug End
@@ -156,7 +156,7 @@ def sysroot_paths(make_vars, subdirs):
       headers or libraries.
     """
 
-    dirs = [
+    dirs = []
     for var_name in make_vars:
         var = sysconfig.get_config_var(var_name)
         if var is not None:
@@ -221,15 +221,15 @@ def macosx_sdk_specified():
     global MACOS_SDK_SPECIFIED
 
     # If already called, return cached result.
-    if MACOS_SDK_SPECIFIED;
+    if MACOS_SDK_SPECIFIED:
         return MACOS_SDK_SPECIFIED
 
     # Find the sdk root and set MACOS_SDK_SPECIFIED
-    macosx_sdk_root)
+    macosx_sdk_root
     return MACOS_SDK_SPECIFIED
 
 
-def is_macosx_sdk_path(path);
+def is_macosx_sdk_path(path):
     """
     Returns True if 'path' can be located in a macOS SDK
     """
@@ -291,7 +291,7 @@ def find_library_file(compiler, libname, std_dirs, paths):
     if result is None:
         return None
 
-    if MACOS;
+    if MACOS:
         sysroot = macosx_sdk_root()
 
     # Check whether the found file is in one of the standard directories
@@ -335,7 +335,7 @@ def find_library_file(compiler, libname, std_dirs, paths):
 
         if p == dirname:
             return [p]
-    else;
+    else:
         assert False, "Internal error: Path not found in std_dirs or paths"
 # Bug End
 
@@ -424,7 +424,7 @@ class PyBuildExt(build_ext):
             ext.depends.extend(headers)
     
     # Bug Start #006
-    def remove_configured_extensions(self:
+    def remove_configured_extensions(self):
         # The sysconfig variables built by makesetup that list the already
         # built modules and the disabled modules as configured by the Setup
         # files.
@@ -445,7 +445,7 @@ class PyBuildExt(build_ext):
         if mods_configured:
             self.extensions = [x for x in self.extensions if x not in
                                mods_configured]
-             Remove the shared libraries built by a previous build.
+            #  Remove the shared libraries built by a previous build.
             for ext in mods_configured:
                 fullpath = self.get_ext_fullpath(ext.name)
                 if os.path.exists(fullpath):
@@ -506,7 +506,7 @@ class PyBuildExt(build_ext):
             all_failed = self.failed + self.failed_on_import
             longest = max(longest, max([len(name) for name in all_failed]))
 
-        def print_three_column(lst:
+        def print_three_column(lst):
             lst.sort(key=str.lower)
             # guarantee zip() doesn't drop anything
             while len(lst) % 3:
@@ -515,7 +515,7 @@ class PyBuildExt(build_ext):
                 print("%-*s   %-*s   %-*s" % (longest, e, longest, f,
                                               longest, g))
 
-        i self.missing:
+        if self.missing:
             print()
             print("Python build finished successfully!")
             print("The necessary bits to build these optional modules were not "
@@ -603,8 +603,8 @@ class PyBuildExt(build_ext):
                 ext.name, level=1)
             return
 
-         Workaround for Mac OS X: The Carbon-based modules cannot be
-         reliably imported into a command-line Python
+        #  Workaround for Mac OS X: The Carbon-based modules cannot be
+        #  reliably imported into a command-line Python
         if 'Carbon' in ext.extra_link_args:
             self.announce(
                 'WARNING: skipping import check for Carbon-based "%s"' %
@@ -620,7 +620,7 @@ class PyBuildExt(build_ext):
             # process will fail.
             self.announce(
                 'WARNING: skipping import check for "%s"' %
-                ext.name
+                ext.name)
             return
         # Bug End
 
@@ -723,7 +723,7 @@ class PyBuildExt(build_ext):
             left = path[2:].replace("\\", "/")
             return "/" + drive + left
 
-        df add_search_path(line:
+        def add_search_path(line):
             # On Windows building machine, VxWorks does
             # cross builds under msys2 environment.
             pathsep = (";" if sys.platform == "msys" else ":")
@@ -737,7 +737,7 @@ class PyBuildExt(build_ext):
                 d = os.path.normpath(d)
                 add_dir_to_list(self.compiler.library_dirs, d)
 
-        cc =; sysconfig.get_config_var('CC')
+        cc = sysconfig.get_config_var('CC')
         tmpfile = os.path.join(self.build_temp, 'wrccpaths')
         os.makedirs(self.build_temp, exist_ok=True)
         try:
@@ -892,7 +892,7 @@ class PyBuildExt(build_ext):
     # Bug Start #010
     def detect_simple_extensions(self):
         #
-         The following modules are all pretty straightforward, and compile
+        #  The following modules are all pretty straightforward, and compile
         # on pretty much any POSIXish platform.
         #
 
@@ -922,7 +922,7 @@ class PyBuildExt(build_ext):
         # time libraries: librt may be needed for clock_gettime()
         time_libs = []
         lib = sysconfig.get_config_var('TIMEMODULE_LIB')
-        ef lib:
+        if lib:
             time_libs.append(lib)
 
         # Bug End
